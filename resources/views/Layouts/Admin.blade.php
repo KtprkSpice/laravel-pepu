@@ -76,10 +76,16 @@
             </ul>
         </div>
         <div class="mt-auto">
-            <a href="#" class="block p-5 text-white border-t border-black">
+            {{-- <a href="{{ route('logout') }}" class="block p-5 text-white border-t border-black">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Logout</span>
-            </a>
+            </a> --}}
+            <form action="{{ route('logout') }}" class="w-full" id="logout" method="POST">
+                <button type="submit" class="w-full text-left p-5 text-white border-t border-black cursor-pointer">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </aside>
 
@@ -106,6 +112,27 @@
             sidebar.classList.add('-translate-x-full')
             overlay.classList.add('hidden')
         });
+
+        // Logout alert
+        const logout = document.getElementById('logout');
+        logout.addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Logout"
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+
+            });
+        })
 
         // Cnfirm Delte
         document.querySelectorAll('.delete-form').forEach(form => {
